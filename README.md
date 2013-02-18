@@ -17,7 +17,7 @@ I use the tools with a cron job that zips up my ```src```,```docs```, and few ot
 
 Similarly with the ```bak-cleaner.py``` script you will need to edit the script and supply your ```access id```, ```secret key```, and the s3 destination bucket
 
-The final step is to create is to schedule a cron to run the whole thing. Below is my example cron entry. I am using a python virtual environment created through pythonbrew for the python script. If you do this you can run a ```pip install -r requirements.txt``` on the included requirements text. This will create a virtual environment in the canonical pythonbrew path with the necessary python dependencies. Then I just call the shell script and if the return code is 0 I execute the python script using the binary at the in the pythonbrew virtual environment path.
+The final step is to create is to schedule a cron to run the whole thing. Below is my example cron entry. I am using a python virtual environment created through pythonbrew for the python script. If you do this you can source this virtual environement, run a ```pip install -r requirements.txt``` on the included requirements text, then you can execute the python binary at the virtual environment path with access to the required python dependencies. Once this is done I just call the shell script and if the return code is 0 I execute the python script using the binary at the in the pythonbrew virtual environment path.
 
 ```
 0 9 * * * /usr/local/bin/backup-box && /usr/local/pythonbrew/venvs/Python-2.7.3/backup/bin/python /usr/local/bin/bak-cleaner.py
