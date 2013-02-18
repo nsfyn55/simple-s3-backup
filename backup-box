@@ -1,0 +1,26 @@
+#!/bin/bash
+RET=$CWD
+
+now=$(date +"%m_%d_%Y")
+backup_name="backup_$now.tar.gz"
+
+mkdir /tmp/home-bak
+mkdir /tmp/home-bak/files
+mkdir /tmp/home-bak/archive
+
+#all The Shit you want to back up
+cp -r /home/art/src /tmp/home-bak/files
+cp -r /home/art/docs /tmp/home-bak/files
+cp -r /home/art/.zshrc /tmp/home-bak/files
+cp -r /home/art/.vim /tmp/home-bak/files
+cp -r /home/art/.xinitrc /tmp/home-bak/files
+cp -r /home/art/.ssh /tmp/home-bak/files
+
+cd /tmp/home-bak/ 
+tar -czf archive/$backup_name files
+
+/usr/bin/s3cmd put archive/$backup_name <s3-destination>
+
+rm -rf /tmp/home-bak
+
+cd $RET
